@@ -28,7 +28,7 @@ form, .content {
 }
 .input-group {
 	margin: 10px 0px 10px 0px;
-	color: #d37c2a;
+	color: white;
 }
 
 .input-group label {
@@ -48,7 +48,7 @@ form, .content {
 	margin: 0 auto;
 	display: block;
 	width:200px;
-	height:75px;
+	height:60px;
 	font-size: 20px;
 	color: white;
 	background: #d37c2a;
@@ -59,7 +59,7 @@ form, .content {
 	margin: 0px auto;
 	padding: 10px;
 	border: 1px solid #d37c2a;
-	color: #d37c2a;
+	color: white;
 	background: #d37c2a;
 	border-radius: 5px;
 	text-align: left;
