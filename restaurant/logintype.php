@@ -13,7 +13,6 @@
 
 	<form method="post" action="homepage.php">
 
-		<?php include('errors.php'); ?>
 		<div class="input-group">
       <br/><button type="submit" class="button" name="login_staf">Customer Login</button>
 			<br/><button type="submit" class="button" name="login_cust">Manager Login</button>
