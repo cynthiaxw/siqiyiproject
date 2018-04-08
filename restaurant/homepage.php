@@ -35,7 +35,6 @@ if (isset($_GET['logout'])) {
 
 	<form method="post" action="homepage.php">
 
-		<?php include('errors.php'); ?>
 		<div class="input-group">
 
       <br/><button type="submit" class="button" name="btn_explore">Explore</button>
