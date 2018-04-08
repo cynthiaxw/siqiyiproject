@@ -1,48 +1,15 @@
 <?php
 	session_start();
-
 	// variable declaration
 	$username = "";
 	$email    = "";
+	$phone		= "";
 	$errors = array();
 	$_SESSION['success'] = "";
 	$usertype = 0;	//0: cutsomer, 1: manager, 2: staff
 
 	// connect to database
 	$db = mysqli_connect('localhost', 'root', '', 'registration');
-
-	// REGISTER USER
-	if (isset($_POST['reg_user'])) {
-		// receive all input values from the form
-		$username = mysqli_real_escape_string($db, $_POST['username']);
-		$email = mysqli_real_escape_string($db, $_POST['email']);
-		$password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
-		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
-
-		// form validation: ensure that the form is correctly filled
-		if (empty($username)) { array_push($errors, "Username is required"); }
-		if (empty($email)) { array_push($errors, "Email is required"); }
-		if (empty($password_1)) { array_push($errors, "Password is required"); }
-
-		if ($password_1 != $password_2) {
-			array_push($errors, "The two passwords do not match");
-		}
-
-		// register user if there are no errors in the form
-		if (count($errors) == 0) {
-			$password = md5($password_1);//encrypt the password before saving in the database
-			$query = "INSERT INTO users (username, email, password)
-					  VALUES('$username', '$email', '$password')";
-			mysqli_query($db, $query);
-
-			$_SESSION['username'] = $username;
-			$_SESSION['success'] = "You are now logged in";
-			header('location: index.php');
-		}
-
-	}
-
-	// ...
 
 	// Choose login user type
 	if (isset($_POST['login_cust'])){
@@ -56,17 +23,6 @@
 	if(isset($_POST['login_staf'])){
 		header('location: login.php');
 		$usertype = 2;
-	}
-
-	//Home page
-	if(isset($_POST['btn_login'])){
-		header('location: logintype.php');
-	}
-	if(isset($_POST['btn_search'])){
-		header('location: search.php');
-	}
-	if(isset($_POST['btn_explore'])){
-		header('location: explore.php');
 	}
 
 
@@ -84,17 +40,28 @@
 
 		if (count($errors) == 0) {
 			$password = md5($password);
-			$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+		//	if($usertype == 0)$query = "SELECT * FROM customer WHERE user_name='$username' AND password='$password'";
+			if($usertype == 0)$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+			else if($usertype == 1)$query = "SELECT * FROM manager WHERE user_name='$username' AND password='$password'";
+			else if($usertype == 2)$query = "SELECT * FROM resaurant_staff WHERE user_name='$username' AND password='$password'";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) {
 				$_SESSION['username'] = $username;
-				$_SESSION['success'] = "You are now logged in";
-				header('location: index.php');
+			//	$_SESSION['success'] = "You are now logged in";
+				header('location: homepage.php');
 			}else {
-				array_push($errors, "Wrong username/password combination");
+				array_push($errors, "Wrong username or password.");
 			}
 		}
 	}
 
 ?>
+
+<?php  if (count($errors) > 0) : ?>
+	<div class="error">
+		<?php foreach ($errors as $error) : ?>
+			<p><?php echo $error ?></p>
+		<?php endforeach ?>
+	</div>
+<?php  endif ?>
