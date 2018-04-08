@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Restaurant Reservation SystemL</title>
+	<title>Restaurant Reservation System</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -18,17 +18,14 @@
 		<div class="input-group">
 			<label>Username</label>
 			<input type="text" name="username" >
-		</div>
-		<div class="input-group">
 			<label>Password</label>
 			<input type="password" name="password">
+			<button type="submit" class="button" name="login_done">Login</button>
 		</div>
-		<div class="input-group">
-			<button type="submit" class="btn" name="login_done">Login</button>
-		</div>
-		<p>
-			Not yet a member? <a href="register.php">Sign up</a>
-		</p>
+		<center><p>
+			Not yet a member? <a href="register.php">Sign up.</a>
+			<br/><a href="homepage.php">Back to home page.</a>
+		</p></center>
 	</form>
 
 
